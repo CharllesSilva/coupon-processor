@@ -38,7 +38,7 @@ public class CouponService {
     private Coupon getCoupon(Long id) {
         return couponRepository.findById(id)
                 .orElseThrow(() -> new CouponNotFoundException(
-                        "coupon not found ssssswith id: " + id
+                        "coupon not found swith id: " + id
                 ));
     }
 

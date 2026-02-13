@@ -7,13 +7,12 @@ import java.sql.Timestamp;
 
 public record CouponDTO(
         Long id,
-        @NotNull(message = "O code nao pode ser nulo") String code,
+        @NotNull(message = "code cannot be null") String code,
         String description,
-        @NotNull(message = "O desconto nao pode ser nulo") BigDecimal discountValue,
-        @NotNull(message = "A data de validacao nao pode ser nula") Timestamp expirationDate,
+        @NotNull(message = "discount cannot be null") BigDecimal discountValue,
+        @NotNull(message = "expiration date cannot be null") Timestamp expirationDate,
         Boolean published) {
     public boolean isPublished() {
         return published != null && published;
     }
 }
-

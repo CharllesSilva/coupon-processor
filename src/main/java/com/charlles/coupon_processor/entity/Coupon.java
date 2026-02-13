@@ -118,12 +118,13 @@ public class Coupon {
         validateExpirationDate();
     }
 
+    // Coupon entity
     public void validateAndNormalizeCode() {
         String normalizedCode = this.code.replaceAll("[^a-zA-Z0-9]", "");
 
         if (normalizedCode.length() != 6) {
             throw new InvalidCouponException(
-                    "codigo deve ter exatamente 6 caracteres"
+                    "code must have exactly 6 characters"
             );
         }
         this.code = normalizedCode;
@@ -133,16 +134,16 @@ public class Coupon {
         Timestamp now = Timestamp.from(Instant.now());
 
         if (this.expirationDate.before(now)) {
-            throw new InvalidCouponException("data de expiracao nao pode ser no passado");
+            throw new InvalidCouponException("expiration date cannot be in the past");
         }
     }
 
     public void validateDiscountValue() {
         if (this.discountValue.compareTo(new BigDecimal("0.5")) < 0) {
-            throw new InvalidCouponException("valor de desconto minimo e 0,5");
+            throw new InvalidCouponException("minimum discount value is 0.5");
         }
         if (this.discountValue.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidCouponException("valor de desconto deve ser maior que zero");
+            throw new InvalidCouponException("discount value must be greater than zero");
         }
     }
 }

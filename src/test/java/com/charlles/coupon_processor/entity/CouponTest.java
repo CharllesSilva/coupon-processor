@@ -184,4 +184,76 @@ class CouponTest {
 
         assertEquals("A1B2C3", coupon.getCode());
     }
+    @Test
+    void shouldUseSettersCorrectly() {
+        Coupon coupon = new Coupon(
+                null,
+                "SET123",
+                "setter test",
+                new BigDecimal("10.00"),
+                Timestamp.valueOf(LocalDateTime.now().plusDays(30)),
+                CouponStatus.ACTIVE,
+                true
+        );
+
+        coupon.setCode("NEW123");
+        coupon.setDescription("new description");
+        coupon.setDiscountValue(new BigDecimal("20.00"));
+        coupon.setExpirationDate(Timestamp.valueOf(LocalDateTime.now().plusDays(60)));
+        coupon.setStatus(CouponStatus.ACTIVE);
+        coupon.setPublished(false);
+        coupon.setRedeemed(true);
+
+        assertEquals("NEW123", coupon.getCode());
+        assertEquals("new description", coupon.getDescription());
+        assertEquals(new BigDecimal("20.00"), coupon.getDiscountValue());
+        assertEquals(CouponStatus.ACTIVE, coupon.getStatus());
+        assertFalse(coupon.isPublished());
+        assertTrue(coupon.isRedeemed());
+    }
+
+    @Test
+    void shouldGetIdCorrectly() {
+        Coupon coupon = new Coupon(
+                99L,
+                "ID1234",
+                "id test",
+                new BigDecimal("15.00"),
+                Timestamp.valueOf(LocalDateTime.now().plusDays(30)),
+                CouponStatus.ACTIVE,
+                true
+        );
+
+        assertEquals(99L, coupon.getId());
+    }
+
+    @Test
+    void shouldTestPublishedFalse() {
+        Coupon coupon = new Coupon(
+                null,
+                "PUB123",
+                "published false",
+                new BigDecimal("10.00"),
+                Timestamp.valueOf(LocalDateTime.now().plusDays(30)),
+                CouponStatus.ACTIVE,
+                false
+        );
+
+        assertFalse(coupon.isPublished());
+    }
+
+    @Test
+    void shouldTestNegativeDiscountValue() {
+        assertThrows(InvalidCouponException.class, () -> {
+            new Coupon(
+                    null,
+                    "NEG123",
+                    "negative discount",
+                    new BigDecimal("-5.00"),
+                    Timestamp.valueOf(LocalDateTime.now().plusDays(30)),
+                    CouponStatus.ACTIVE,
+                    true
+            );
+        });
+    }
 }

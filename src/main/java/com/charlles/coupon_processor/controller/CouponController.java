@@ -34,7 +34,6 @@ public class CouponController {
             @ApiResponse(responseCode = "400", description = "invalid data")
     })
     public ResponseEntity<CouponResponseDTO> create(@Valid @RequestBody CouponDTO couponDTO) {
-        log.info("Request recebida: {}", couponDTO);
 
         CouponResponseDTO response = service.create(couponDTO);
 
